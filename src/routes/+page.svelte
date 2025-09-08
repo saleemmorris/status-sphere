@@ -35,7 +35,11 @@
     } else {
       quizFinished = true;
       // Calculate the percentile result
-      percentileResult = `Top ${101 - totalScore}%`;
+      totalScore < 100
+        ? (percentileResult = `Top ${101 - totalScore}%`)
+        : totalScore === 100
+          ? (percentileResult = "Top 1%")
+          : (percentileResult = "Under 1%");
     }
   }
 
