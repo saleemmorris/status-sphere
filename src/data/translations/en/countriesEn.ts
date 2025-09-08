@@ -3,7 +3,7 @@ interface Country {
   code: string;
 }
 
-const countriesOfTheWorld: Country[] = [
+const countriesOfTheWorldEn: Country[] = [
   {"name": "Afghanistan", "code": "AF"},
   {"name": "Albania", "code": "AL"},
   {"name": "Algeria", "code": "DZ"},
@@ -201,4 +201,4 @@ const countriesOfTheWorld: Country[] = [
   {"name": "Zimbabwe", "code": "ZW"}
 ];
 
-export default countriesOfTheWorld;
+export default countriesOfTheWorldEn;

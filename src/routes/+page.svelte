@@ -1,31 +1,56 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import "shareon/css"; // most bundlers will transpile this CSS
+  import "shareon/css";
 
   import { getCountryFromBrowserSettings } from "$lib/utils/detectCountry";
   import { getTranslation } from "$lib/utils/i18n";
-  import countriesOfTheWorld from "../data/countries";
-  import worldStatusQuestions from "../data/translations/en/worldStatusQuestions";
+
+  import type { UiTranslations } from "../data/translations/uiTypes";
+  import type {
+    Question,
+    QuestionCategory,
+  } from "../data/translations/worldStatusTypes";
+
+  import uiEn from "../data/translations/en/uiEn";
+  import uiDe from "../data/translations/de/uiDe";
+  import uiBn from "../data/translations/bn/uiBn";
+
+  import questionsEn from "../data/translations/en/worldStatusQuestionsEn";
+  import questionsDe from "../data/translations/de/worldStatusQuestionsDe";
+  import questionsBn from "../data/translations/bn/worldStatusQuestionsBn";
+
+  import countriesOfTheWorldEn from "../data/translations/en/countriesEn";
+  import countriesOfTheWorldDe from "../data/translations/de/countriesDe";
+  import countriesOfTheWorldBn from "../data/translations/bn/countriesBn";
 
   const country = getCountryFromBrowserSettings();
-  const lang = navigator.language; // e.g. "de-DE" or "en-GB"
+  const lang = navigator.language;
   const worldStatus = getTranslation(lang);
+
+  // Countries list based on language
+  let countriesOfTheWorld = countriesOfTheWorldEn; // Default to English
+  if (lang.startsWith("de")) {
+    countriesOfTheWorld = countriesOfTheWorldDe;
+  } else if (lang.startsWith("bn")) {
+    countriesOfTheWorld = countriesOfTheWorldBn;
+  } else {
+    countriesOfTheWorld = countriesOfTheWorldEn;
+  }
 
   // Use a reactive statement to determine the initial message
   let detectedCountryName: string | null = null;
   let selectedCountryCode: string | null = null;
   let url = "https://www.worldlyworth.org/";
 
-  // Flatten the nested object into a single array for easier iteration
-  $: allQuestions = Object.values(worldStatus).flatMap(
-    (category) => category.questions
-  );
-
   // State variables
   let currentQuestionIndex = 0;
   let totalScore = 0;
   let quizFinished = false;
   let percentileResult = "";
+
+  // UI + questions will be picked based on lang
+  let ui: UiTranslations;
+  let questions: Record<string, QuestionCategory>;
 
   // Copy URL to clipboard function
   function copyToClipboard(text: string) {
@@ -49,10 +74,10 @@
       quizFinished = true;
       // Calculate the percentile result
       totalScore < 100
-        ? (percentileResult = `Top ${101 - totalScore}%`)
+        ? (percentileResult = `${ui.thisPutsYouIn} ${101 - totalScore}%`)
         : totalScore === 100
-          ? (percentileResult = "Top 1%")
-          : (percentileResult = "Under 1%");
+          ? (percentileResult = `${ui.thisPutsYouIn} 1%`)
+          : (percentileResult = `${ui.thisPutsYouIn} < 1%`);
     }
   }
 
@@ -61,7 +86,6 @@
     totalScore = 0;
     quizFinished = false;
     percentileResult = "";
-    // Resetting the answers in the original array is good practice too
     allQuestions.forEach((q) => (q.answer = false));
   }
 
@@ -78,7 +102,25 @@
 
   $: displayMessage = detectedCountryName
     ? `${detectedCountryName}`
-    : `Choose your country:`;
+    : `${ui.chooseCountry}:`;
+  // Pick UI + questions reactively
+  $: {
+    if (lang.startsWith("bn")) {
+      ui = uiBn;
+      questions = questionsBn;
+    } else if (lang.startsWith("de")) {
+      ui = uiDe;
+      questions = questionsDe;
+    } else {
+      ui = uiEn;
+      questions = questionsEn;
+    }
+  }
+
+  // Flatten all questions
+  $: allQuestions = Object.values(questions).flatMap(
+    (category: QuestionCategory) => category.questions
+  );
 </script>
 
 <div class="sphere-overlay">
@@ -101,9 +143,11 @@
   <div>
     <h1>
       {#if detectedCountryName}
-        {`I live in the ${displayMessage}`}
+        {`${ui.iLiveIn} ${
+          countriesOfTheWorld.find((c) => c.code === selectedCountryCode)?.name
+        }`}
       {:else}
-        Choose your country:
+        {ui.chooseCountry}:
         <select class="country-select" bind:value={selectedCountryCode}>
           <option value="">{displayMessage}</option>
           {#each countriesOfTheWorld as country}
@@ -120,27 +164,32 @@
 
           <div class="buttons">
             <button class="yes-button" on:click={() => handleAnswer(true)}
-              >Yes</button
+              >{ui.yes}</button
             >
             <button class="no-button" on:click={() => handleAnswer(false)}
-              >No</button
+              >{ui.no}</button
             >
           </div>
-          <p>Question {currentQuestionIndex + 1} of {allQuestions.length}</p>
+          <p>
+            {ui.question}
+            {currentQuestionIndex + 1}
+            {ui.of}
+            {allQuestions.length}
+          </p>
         </div>
       {:else}
         <div class="results">
-          <h2>Quiz Complete!</h2>
-          <p>Your total score is: <strong>{totalScore}</strong></p>
+          <h2>{ui.quizComplete}</h2>
+          <p>{ui.yourTotalScoreIs} <strong>{totalScore}</strong></p>
           <p>
-            This puts you in the: <strong>{percentileResult}</strong> of the world's
-            population.
+            {ui.thisPutsYouIn} <strong>{percentileResult}</strong>
+            {ui.ofTheWorldPopulation}.
           </p>
         </div>
       {/if}
       <div class="quiz-navigation">
         <button on:click={() => restartQuiz()} disabled={!quizFinished}
-          >Restart Quiz</button
+          >{ui.restartQuiz}</button
         >
       </div>
     </div>
@@ -150,39 +199,39 @@
       class="facebook"
       href="https://www.facebook.com/sharer/sharer.php?u={url}"
       target="_blank"
-      rel="noopener noreferrer">Share on Facebook</a
+      rel="noopener noreferrer">{ui.shareOnFacebook}</a
     >
     <a
       class="linkedin"
       href="https://www.linkedin.com/sharing/share-offsite/?url={url}"
       target="_blank"
-      rel="noopener noreferrer">Share on LinkedIn</a
+      rel="noopener noreferrer">{ui.shareOnLinkedIn}</a
     >
     <a
       class="pinterest"
       href="https://www.pinterest.com/pin/create/button/?url={url}"
       target="_blank"
-      rel="noopener noreferrer">Share on Pinterest</a
+      rel="noopener noreferrer">{ui.shareOnPinterest}</a
     >
     <a
       class="twitter"
       href="https://twitter.com/intent/tweet?url={url}"
       target="_blank"
-      rel="noopener noreferrer">Share on Twitter</a
+      rel="noopener noreferrer">{ui.shareOnTwitter}</a
     >
     <button
       class="copy-url"
       type="button"
       on:click={() => copyToClipboard(url)}
     >
-      Copy URL
+      {ui.copyUrl}
     </button>
     <a
       class="whatsapp"
       style="background-color: green;"
       href="https://api.whatsapp.com/send?text={url}"
       target="_blank"
-      rel="noopener noreferrer">Share on WhatsApp</a
+      rel="noopener noreferrer">{ui.shareOnWhatsApp}</a
     >
   </div>
 </main>
@@ -303,7 +352,14 @@
 
   .shareon {
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     justify-content: center;
     margin: 2rem 0;
+  }
+
+  .shareon a,
+  .shareon button {
+    white-space: nowrap;
   }
 </style>

@@ -1,35 +1,35 @@
-import type { WorldWealthStatus } from "../../worldStatus";
+import type { WorldWealthStatus } from "../worldStatusTypes";
 
-const worldStatusQuestions: WorldWealthStatus = {
+const worldStatusQuestionsDe: WorldWealthStatus = {
   basicNeeds: {
-    title: "Basic Needs",
+    title: "Grundbedürfnisse",
     questions: [
       {
-        question: "Do you have a safe home with heating?",
+        question: "Haben Sie ein sicheres Zuhause mit Heizung?",
         key: "hasSafeHomeWithHeating",
         points: 6,
         answer: false,
       },
       {
-        question: "Do you have access to clean drinking water at home?",
+        question: "Haben Sie zu Hause Zugang zu sauberem Trinkwasser?",
         key: "hasAccessToCleanWater",
         points: 6,
         answer: false,
       },
       {
-        question: "Do you have reliable electricity 24/7?",
+        question: "Haben Sie rund um die Uhr zuverlässigen Strom?",
         key: "hasReliableElectricity",
         points: 6,
         answer: false,
       },
       {
-        question: "Do you eat 3 meals most days?",
+        question: "Essen Sie an den meisten Tagen drei Mahlzeiten?",
         key: "eatsThreeMealsMostDays",
         points: 6,
         answer: false,
       },
       {
-        question: "Do you have access to healthcare free at the point of use (NHS)?",
+        question: "Haben Sie Zugang zu einer allgemein verfügbaren Gesundheitsversorgung (z. B. über die gesetzliche Krankenkasse)?",
         key: "hasFreeHealthcare",
         points: 6,
         answer: false,
@@ -37,46 +37,46 @@ const worldStatusQuestions: WorldWealthStatus = {
     ],
   },
   everydayLiving: {
-    title: "Everyday Living",
+    title: "Alltägliches Leben",
     questions: [
       {
-        question: "Do you have more than 3 pairs of shoes?",
+        question: "Besitzen Sie mehr als drei Paar Schuhe?",
         key: "hasMoreThanThreePairsOfShoes",
         points: 3,
         answer: false,
       },
       {
-        question: "Do you own a mobile phone?",
+        question: "Besitzen Sie ein Handy oder Smartphone?",
         key: "ownsMobilePhone",
         points: 3,
         answer: false,
       },
       {
-        question: "Do you own a computer or tablet?",
+        question: "Besitzen Sie einen Computer oder ein Tablet?",
         key: "ownsComputerOrTablet",
         points: 3,
         answer: false,
       },
       {
-        question: "Do you own a TV?",
+        question: "Besitzen Sie einen Fernseher?",
         key: "ownsTv",
         points: 2,
         answer: false,
       },
       {
-        question: "Do you have internet at home?",
+        question: "Haben Sie zu Hause einen Internetanschluss?",
         key: "hasInternetAtHome",
         points: 5,
         answer: false,
       },
       {
-        question: "Do you own a washing machine?",
+        question: "Besitzen Sie eine Waschmaschine?",
         key: "ownsWashingMachine",
         points: 5,
         answer: false,
       },
       {
-        question: "Do you own a fridge/freezer?",
+        question: "Besitzen Sie einen Kühlschrank oder eine Kühl-/Gefrierkombination?",
         key: "ownsFridgeFreezer",
         points: 5,
         answer: false,
@@ -84,28 +84,28 @@ const worldStatusQuestions: WorldWealthStatus = {
     ],
   },
   transportAndMobility: {
-    title: "Transport & Mobility",
+    title: "Mobilität & Transport",
     questions: [
       {
-        question: "Do you own or drive a car/motorbike?",
+        question: "Besitzen oder fahren Sie ein Auto oder Motorrad?",
         key: "ownsOrDrivesCarOrMotorbike",
         points: 4,
         answer: false,
       },
       {
-        question: "Do you use public transport without worry of safety?",
+        question: "Nutzen Sie öffentliche Verkehrsmittel ohne Sorge um Ihre Sicherheit?",
         key: "usesPublicTransportSafely",
         points: 3,
         answer: false,
       },
       {
-        question: "Have you travelled abroad at least once in your life?",
+        question: "Sind Sie mindestens einmal im Leben ins Ausland gereist?",
         key: "hasTraveledAbroad",
         points: 4,
         answer: false,
       },
       {
-        question: "Can you afford a holiday at least once every few years?",
+        question: "Können Sie sich alle paar Jahre einen Urlaub leisten?",
         key: "canAffordHoliday",
         points: 4,
         answer: false,
@@ -113,28 +113,28 @@ const worldStatusQuestions: WorldWealthStatus = {
     ],
   },
   financialSecurity: {
-    title: "Financial Security",
+    title: "Finanzielle Sicherheit",
     questions: [
       {
-        question: "Do you have money saved for emergencies?",
+        question: "Haben Sie Geld für Notfälle zurückgelegt?",
         key: "hasEmergencySavings",
         points: 5,
         answer: false,
       },
       {
-        question: "Do you have a stable monthly income?",
+        question: "Verfügen Sie über ein stabiles monatliches Einkommen?",
         key: "hasStableMonthlyIncome",
         points: 5,
         answer: false,
       },
       {
-        question: "Can you afford heating throughout winter without hardship?",
+        question: "Können Sie sich Heizung im Winter leisten, ohne dass es Sie stark belastet?",
         key: "canAffordWinterHeating",
         points: 4,
         answer: false,
       },
       {
-        question: "Can you afford new clothes when needed?",
+        question: "Können Sie sich bei Bedarf neue Kleidung leisten?",
         key: "canAffordNewClothes",
         points: 4,
         answer: false,
@@ -142,28 +142,28 @@ const worldStatusQuestions: WorldWealthStatus = {
     ],
   },
   comfortAndExtras: {
-    title: "Comfort & Extras",
+    title: "Komfort & Extras",
     questions: [
       {
-        question: "Do you own books, games, or hobbies for leisure?",
+        question: "Besitzen Sie Bücher, Spiele oder Hobbymaterialien zur Freizeitgestaltung?",
         key: "ownsBooksGamesOrHobbies",
         points: 2,
         answer: false,
       },
       {
-        question: "Do you have access to streaming services (Netflix, Spotify, etc.)?",
+        question: "Haben Sie Zugang zu Streaming-Diensten (z. B. Netflix, Spotify usw.)?",
         key: "hasAccessToStreamingServices",
         points: 2,
         answer: false,
       },
       {
-        question: "Do you eat out or order takeaway at least monthly?",
+        question: "Gehen Sie mindestens einmal im Monat essen oder bestellen Sie Essen nach Hause?",
         key: "eatsOutMonthly",
         points: 3,
         answer: false,
       },
       {
-        question: "Do you have spare money left at the end of most months?",
+        question: "Haben Sie am Ende der meisten Monate noch Geld übrig?",
         key: "hasSpareMoneyAtEndOfMonth",
         points: 5,
         answer: false,
@@ -172,4 +172,4 @@ const worldStatusQuestions: WorldWealthStatus = {
   },
 };
 
-export default worldStatusQuestions;
+export default worldStatusQuestionsDe;

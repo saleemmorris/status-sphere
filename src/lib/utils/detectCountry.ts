@@ -1,4 +1,6 @@
-import countriesOfTheWorld from '../../data/countries';
+import countriesOfTheWorldBn from '../../data/translations/en/countriesEn'; // Default to English; adjust as needed
+import countriesOfTheWorldDe from '../../data/translations/de/countriesDe';
+import countriesOfTheWorldEn from '../../data/translations/en/countriesEn';
 
 interface Country {
   name: string;
@@ -49,6 +51,16 @@ export function getCountryFromBrowserSettings(): Country | null {
   const detectedCode = getCountryCodeFromBrowserLanguage();
 
   if (detectedCode) {
+    // Choose the appropriate country list based on your app's language settings
+    let countriesOfTheWorld: Country[] = countriesOfTheWorldEn; // Default to English
+
+    const userLang = navigator.language || (navigator.languages && navigator.languages[0]) || 'en';
+    if (userLang.startsWith('de')) {
+      countriesOfTheWorld = countriesOfTheWorldDe;
+    } else if (userLang.startsWith('bn')) {
+      countriesOfTheWorld = countriesOfTheWorldBn;
+    }
+
     // Use Array.find() to efficiently search for the country object
     const foundCountry = countriesOfTheWorld.find(
       (country: Country) => country.code === detectedCode
