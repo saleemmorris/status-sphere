@@ -61,7 +61,7 @@
 
 <div>
   <h1>
-    {#if !detectedCountryName}
+    {#if detectedCountryName}
       {`I live in the ${displayMessage}`}
     {:else}
       Choose your country:
