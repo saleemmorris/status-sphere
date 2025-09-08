@@ -59,7 +59,7 @@
   }
 </script>
 
-<div>
+<main>
   <h1>
     {#if detectedCountryName}
       {`I live in the ${displayMessage}`}
@@ -105,7 +105,7 @@
       >
     </div>
   </div>
-</div>
+</main>
 
 <style lang="scss">
   $text-color: #333;
@@ -130,6 +130,13 @@
 
   * {
     font-family: "Roboto", sans-serif;
+  }
+
+  main {
+    padding: 1rem;
+    background-color: $bg-color;
+    color: $text-color;
+    min-height: 100vh;
   }
 
   h1 {
@@ -168,7 +175,7 @@
 
   .quiz-container button,
   .quiz-navigation button {
-    margin: 0 0.5rem;
+    margin: 0.5rem 0.5rem;
     padding: 0.5rem 1rem;
     font-size: 1rem;
     cursor: pointer;
