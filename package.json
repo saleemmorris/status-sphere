@@ -19,6 +19,7 @@
     "vite": "^7.1.5"
   },
   "devDependencies": {
+    "@sveltejs/adapter-auto": "^6.1.0",
     "svelte-adapter-bun": "^0.5.2"
   },
   "type": "module",
