@@ -212,7 +212,7 @@
     justify-content: space-between;
     background-color: $bg-color;
     color: $text-color;
-    min-height: 100vh;
+    min-height: 100vmin;
   }
 
   h1 {
