@@ -11,6 +11,43 @@
     href="https://fonts.googleapis.com/css2?family=Roboto:ital@0;1&display=swap"
     rel="stylesheet"
   />
+  <meta name="title" content="Global Wealth Rank | StatusSphere" />
+  <meta
+    name="description"
+    content="Find out where you rank in the world's wealth distribution with a simple, anonymous quiz. Compare your living standards and financial status with the global population."
+  />
+  <meta
+    name="keywords"
+    content="global wealth, wealth quiz, living standards, financial status, global rank, poverty, prosperity, anonymous quiz, statussphere"
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.statussphere.org/" />
+  <meta
+    property="og:title"
+    content="What's Your Global Wealth Rank? | StatusSphere"
+  />
+  <meta
+    property="og:description"
+    content="Take the quiz and discover your financial status compared to the rest of the world. Are you in the top 1%?"
+  />
+  <meta
+    property="og:image"
+    content="https://www.statussphere.org/social-image.png"
+  />
+
+  <meta property="twitter:url" content="https://www.statussphere.org/" />
+  <meta
+    property="twitter:title"
+    content="What's Your Global Wealth Rank? | StatusSphere"
+  />
+  <meta
+    property="twitter:description"
+    content="Take the quiz and discover your financial status compared to the rest of the world. Are you in the top 1%?"
+  />
+  <meta
+    property="twitter:image"
+    content="https://www.statussphere.org/social-image.png"
+  />
 </svelte:head>
 
 {@render children?.()}
