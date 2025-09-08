@@ -3,8 +3,13 @@
   import "shareon/css"; // most bundlers will transpile this CSS
 
   import { getCountryFromBrowserSettings } from "$lib/utils/detectCountry";
+  import { getTranslation } from "$lib/utils/i18n";
   import countriesOfTheWorld from "../data/countries";
-  import worldStatusQuestions from "../data/worldWealthStatus";
+  import worldStatusQuestions from "../data/translations/en/worldStatusQuestions";
+
+  const country = getCountryFromBrowserSettings();
+  const lang = navigator.language; // e.g. "de-DE" or "en-GB"
+  const worldStatus = getTranslation(lang);
 
   // Use a reactive statement to determine the initial message
   let detectedCountryName: string | null = null;
@@ -12,7 +17,7 @@
   let url = "https://www.worldlyworth.org/";
 
   // Flatten the nested object into a single array for easier iteration
-  const allQuestions = Object.values(worldStatusQuestions).flatMap(
+  $: allQuestions = Object.values(worldStatus).flatMap(
     (category) => category.questions
   );
 
@@ -112,6 +117,7 @@
       {#if !quizFinished}
         <div class="question-card">
           <h2>{allQuestions[currentQuestionIndex].question}</h2>
+
           <div class="buttons">
             <button class="yes-button" on:click={() => handleAnswer(true)}
               >Yes</button

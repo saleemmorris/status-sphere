@@ -1,18 +1,4 @@
-interface Question {
-  question: string;
-  key: string;
-  points: number;
-  answer: boolean;
-}
-
-interface QuestionCategory {
-  title: string;
-  questions: Question[];
-}
-
-export interface WorldWealthStatus {
-  [category: string]: QuestionCategory;
-}
+import type { WorldWealthStatus } from "../../worldStatus";
 
 const worldStatusQuestions: WorldWealthStatus = {
   basicNeeds: {
