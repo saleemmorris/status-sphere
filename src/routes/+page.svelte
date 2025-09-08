@@ -9,7 +9,7 @@
   // Use a reactive statement to determine the initial message
   let detectedCountryName: string | null = null;
   let selectedCountryCode: string | null = null;
-  let url = "https://www.statussphere.org/";
+  let url = "https://www.worldlyworth.org/";
 
   // Flatten the nested object into a single array for easier iteration
   const allQuestions = Object.values(worldStatusQuestions).flatMap(

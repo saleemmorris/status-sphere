@@ -15,20 +15,20 @@
     href="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.min.css"
     rel="stylesheet"
   />
-  <meta name="title" content="Global Wealth Rank | StatusSphere" />
+  <meta name="title" content="Global Wealth Rank | Worldly Worth" />
   <meta
     name="description"
     content="Find out where you rank in the world's wealth distribution with a simple, anonymous quiz. Compare your living standards and financial status with the global population."
   />
   <meta
     name="keywords"
-    content="global wealth, wealth quiz, living standards, financial status, global rank, poverty, prosperity, anonymous quiz, statussphere"
+    content="global wealth, wealth quiz, living standards, financial status, global rank, poverty, prosperity, anonymous quiz, worldlyworth"
   />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.statussphere.org/" />
+  <meta property="og:url" content="https://www.worldlyworth.org/" />
   <meta
     property="og:title"
-    content="What's Your Global Wealth Rank? | StatusSphere"
+    content="What's Your Global Wealth Rank? | Worldly Worth"
   />
   <meta
     property="og:description"
@@ -36,13 +36,13 @@
   />
   <meta
     property="og:image"
-    content="https://www.statussphere.org/social-image.png"
+    content="https://www.worldlyworth.org/social-image.png"
   />
 
-  <meta property="twitter:url" content="https://www.statussphere.org/" />
+  <meta property="twitter:url" content="https://www.worldlyworth.org/" />
   <meta
     property="twitter:title"
-    content="What's Your Global Wealth Rank? | StatusSphere"
+    content="What's Your Global Wealth Rank? | Worldly Worth"
   />
   <meta
     property="twitter:description"
@@ -50,7 +50,7 @@
   />
   <meta
     property="twitter:image"
-    content="https://www.statussphere.org/social-image.png"
+    content="https://www.worldlyworth.org/social-image.png"
   />
 </svelte:head>
 
