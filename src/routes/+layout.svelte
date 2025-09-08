@@ -1,7 +1,3 @@
-<script lang="ts">
-  let { children } = $props();
-</script>
-
 <svelte:head>
   <link rel="icon" type="image/png" href="/favicon.ico" />
   <link rel="manifest" href="/manifest.json" />
@@ -54,7 +50,7 @@
   />
 </svelte:head>
 
-{@render children?.()}
+<slot />
 
 <style>
   :global(body) {
