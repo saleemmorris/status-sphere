@@ -11,6 +11,10 @@
     href="https://fonts.googleapis.com/css2?family=Roboto:ital@0;1&display=swap"
     rel="stylesheet"
   />
+  <link
+    href="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.min.css"
+    rel="stylesheet"
+  />
   <meta name="title" content="Global Wealth Rank | StatusSphere" />
   <meta
     name="description"

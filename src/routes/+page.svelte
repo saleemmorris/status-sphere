@@ -1,5 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import "shareon/css"; // most bundlers will transpile this CSS
+
   import { getCountryFromBrowserSettings } from "$lib/utils/detectCountry";
   import countriesOfTheWorld from "../data/countries";
   import worldStatusQuestions from "../data/worldWealthStatus";
@@ -7,6 +9,7 @@
   // Use a reactive statement to determine the initial message
   let detectedCountryName: string | null = null;
   let selectedCountryCode: string | null = null;
+  let url = "https://www.statussphere.org/";
 
   // Flatten the nested object into a single array for easier iteration
   const allQuestions = Object.values(worldStatusQuestions).flatMap(
@@ -18,6 +21,11 @@
   let totalScore = 0;
   let quizFinished = false;
   let percentileResult = "";
+
+  // Copy URL to clipboard function
+  function copyToClipboard(text: string) {
+    navigator.clipboard.writeText(text);
+  }
 
   // A function to handle the user's answer
   function handleAnswer(isYes: boolean) {
@@ -52,12 +60,15 @@
     allQuestions.forEach((q) => (q.answer = false));
   }
 
-  onMount(() => {
+  onMount(async () => {
     const detectedCountry = getCountryFromBrowserSettings();
     if (detectedCountry) {
       detectedCountryName = detectedCountry.name;
       selectedCountryCode = detectedCountry.code;
     }
+
+    const { shareon } = await import("shareon");
+    shareon.init();
   });
 
   $: displayMessage = detectedCountryName
@@ -82,49 +93,91 @@
 </div>
 
 <main>
-  <h1>
-    {#if detectedCountryName}
-      {`I live in the ${displayMessage}`}
-    {:else}
-      Choose your country:
-      <select class="country-select" bind:value={selectedCountryCode}>
-        <option value="">{displayMessage}</option>
-        {#each countriesOfTheWorld as country}
-          <option value={country.code}>{country.name}</option>
-        {/each}
-      </select>
-    {/if}
-  </h1>
+  <div>
+    <h1>
+      {#if detectedCountryName}
+        {`I live in the ${displayMessage}`}
+      {:else}
+        Choose your country:
+        <select class="country-select" bind:value={selectedCountryCode}>
+          <option value="">{displayMessage}</option>
+          {#each countriesOfTheWorld as country}
+            <option value={country.code}>{country.name}</option>
+          {/each}
+        </select>
+      {/if}
+    </h1>
 
-  <div class="quiz-container">
-    {#if !quizFinished}
-      <div class="question-card">
-        <h2>{allQuestions[currentQuestionIndex].question}</h2>
-        <div class="buttons">
-          <button class="yes-button" on:click={() => handleAnswer(true)}
-            >Yes</button
-          >
-          <button class="no-button" on:click={() => handleAnswer(false)}
-            >No</button
-          >
+    <div class="quiz-container">
+      {#if !quizFinished}
+        <div class="question-card">
+          <h2>{allQuestions[currentQuestionIndex].question}</h2>
+          <div class="buttons">
+            <button class="yes-button" on:click={() => handleAnswer(true)}
+              >Yes</button
+            >
+            <button class="no-button" on:click={() => handleAnswer(false)}
+              >No</button
+            >
+          </div>
+          <p>Question {currentQuestionIndex + 1} of {allQuestions.length}</p>
         </div>
-        <p>Question {currentQuestionIndex + 1} of {allQuestions.length}</p>
+      {:else}
+        <div class="results">
+          <h2>Quiz Complete!</h2>
+          <p>Your total score is: <strong>{totalScore}</strong></p>
+          <p>
+            This puts you in the: <strong>{percentileResult}</strong> of the world's
+            population.
+          </p>
+        </div>
+      {/if}
+      <div class="quiz-navigation">
+        <button on:click={() => restartQuiz()} disabled={!quizFinished}
+          >Restart Quiz</button
+        >
       </div>
-    {:else}
-      <div class="results">
-        <h2>Quiz Complete!</h2>
-        <p>Your total score is: <strong>{totalScore}</strong></p>
-        <p>
-          This puts you in the: <strong>{percentileResult}</strong> of the world's
-          population.
-        </p>
-      </div>
-    {/if}
-    <div class="quiz-navigation">
-      <button on:click={() => restartQuiz()} disabled={!quizFinished}
-        >Restart Quiz</button
-      >
     </div>
+  </div>
+  <div class="shareon">
+    <a
+      class="facebook"
+      href="https://www.facebook.com/sharer/sharer.php?u={url}"
+      target="_blank"
+      rel="noopener noreferrer">Share on Facebook</a
+    >
+    <a
+      class="linkedin"
+      href="https://www.linkedin.com/sharing/share-offsite/?url={url}"
+      target="_blank"
+      rel="noopener noreferrer">Share on LinkedIn</a
+    >
+    <a
+      class="pinterest"
+      href="https://www.pinterest.com/pin/create/button/?url={url}"
+      target="_blank"
+      rel="noopener noreferrer">Share on Pinterest</a
+    >
+    <a
+      class="twitter"
+      href="https://twitter.com/intent/tweet?url={url}"
+      target="_blank"
+      rel="noopener noreferrer">Share on Twitter</a
+    >
+    <button
+      class="copy-url"
+      type="button"
+      on:click={() => copyToClipboard(url)}
+    >
+      Copy URL
+    </button>
+    <a
+      class="whatsapp"
+      style="background-color: green;"
+      href="https://api.whatsapp.com/send?text={url}"
+      target="_blank"
+      rel="noopener noreferrer">Share on WhatsApp</a
+    >
   </div>
 </main>
 
@@ -154,7 +207,9 @@
   }
 
   main {
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: $bg-color;
     color: $text-color;
     min-height: 100vh;
@@ -238,5 +293,11 @@
     to {
       transform: rotateY(189deg) skew(-150deg);
     }
+  }
+
+  .shareon {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
   }
 </style>
