@@ -265,6 +265,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 0 1rem;
     background-color: $bg-color;
     color: $text-color;
     min-height: 100vmin;
