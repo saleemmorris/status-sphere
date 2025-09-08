@@ -39,6 +39,15 @@
     }
   }
 
+  function restartQuiz() {
+    currentQuestionIndex = 0;
+    totalScore = 0;
+    quizFinished = false;
+    percentileResult = "";
+    // Resetting the answers in the original array is good practice too
+    allQuestions.forEach((q) => (q.answer = false));
+  }
+
   onMount(() => {
     const detectedCountry = getCountryFromBrowserSettings();
     if (detectedCountry) {
@@ -50,13 +59,6 @@
   $: displayMessage = detectedCountryName
     ? `${detectedCountryName}`
     : `Choose your country:`;
-
-  // A helper to get the country name from its code
-  function getCountryNameByCode(code: string | null): string {
-    if (!code) return "Choose your country:";
-    const foundCountry = countriesOfTheWorld.find((c) => c.code === code);
-    return foundCountry ? foundCountry.name : "Choose your country:";
-  }
 </script>
 
 <div class="sphere-overlay">
@@ -115,9 +117,8 @@
       </div>
     {/if}
     <div class="quiz-navigation">
-      <button
-        on:click={() => (currentQuestionIndex = 0)}
-        disabled={!quizFinished}>Restart Quiz</button
+      <button on:click={() => restartQuiz()} disabled={!quizFinished}
+        >Restart Quiz</button
       >
     </div>
   </div>
@@ -231,7 +232,7 @@
       transform: rotateY(0deg) skew(30deg);
     }
     to {
-      transform: rotateY(360deg) skew(0deg);
+      transform: rotateY(189deg) skew(-150deg);
     }
   }
 </style>
