@@ -270,24 +270,6 @@
     background-color: $h1-bg-color;
   }
 
-  .country-select {
-    margin-top: 1rem;
-    padding: 0.5rem;
-    font-size: 1.5rem;
-    background-color: $h1-bg-color;
-    color: $h1-text-color;
-    border: 1px solid transparent;
-    border-radius: 5px;
-    appearance: none;
-    position: relative;
-    width: 300px;
-  }
-
-  .country-select option {
-    background-color: $bg-color;
-    color: $text-color;
-  }
-
   .quiz-container {
     display: flex;
     justify-content: center;
