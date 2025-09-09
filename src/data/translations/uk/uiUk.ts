@@ -1,7 +1,7 @@
 import type { UiTranslations } from "../uiTypes";
 
-const uiEn: UiTranslations = {
-  chooseCountry: "Choose your country:",
+const uiUk: UiTranslations = {
+  chooseCountry: "Choose a country:",
   iLiveIn: "I live in",
   yes: "Yes",
   no: "No",
@@ -21,4 +21,4 @@ const uiEn: UiTranslations = {
   copyUrl: "Copy link",
 };
 
-export default uiEn;
+export default uiUk;

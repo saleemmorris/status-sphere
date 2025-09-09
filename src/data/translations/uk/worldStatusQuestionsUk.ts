@@ -1,6 +1,6 @@
 import type { WorldWealthStatus } from "../worldStatusTypes";
 
-const worldStatusQuestionsEn: WorldWealthStatus = {
+const worldStatusQuestionsUk: WorldWealthStatus = {
   basicNeeds: {
     title: "Basic Needs",
     questions: [
@@ -172,4 +172,4 @@ const worldStatusQuestionsEn: WorldWealthStatus = {
   },
 };
 
-export default worldStatusQuestionsEn;
+export default worldStatusQuestionsUk;

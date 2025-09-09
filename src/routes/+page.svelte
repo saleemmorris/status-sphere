@@ -11,15 +11,15 @@
     QuestionCategory,
   } from "../data/translations/worldStatusTypes";
 
-  import uiEn from "../data/translations/en/uiEn";
+  import uiUk from "../data/translations/uk/uiUk";
   import uiDe from "../data/translations/de/uiDe";
   import uiBn from "../data/translations/bn/uiBn";
 
-  import questionsEn from "../data/translations/en/worldStatusQuestionsEn";
+  import questionsUk from "../data/translations/uk/worldStatusQuestionsUk";
   import questionsDe from "../data/translations/de/worldStatusQuestionsDe";
   import questionsBn from "../data/translations/bn/worldStatusQuestionsBn";
 
-  import countriesOfTheWorldEn from "../data/translations/en/countriesEn";
+  import countriesOfTheWorldUk from "../data/translations/uk/countriesUk";
   import countriesOfTheWorldDe from "../data/translations/de/countriesDe";
   import countriesOfTheWorldBn from "../data/translations/bn/countriesBn";
 
@@ -28,13 +28,13 @@
   const worldStatus = getTranslation(lang);
 
   // Countries list based on language
-  let countriesOfTheWorld = countriesOfTheWorldEn; // Default to English
+  let countriesOfTheWorld = countriesOfTheWorldUk; // Default to English
   if (lang.startsWith("de")) {
     countriesOfTheWorld = countriesOfTheWorldDe;
   } else if (lang.startsWith("bn")) {
     countriesOfTheWorld = countriesOfTheWorldBn;
   } else {
-    countriesOfTheWorld = countriesOfTheWorldEn;
+    countriesOfTheWorld = countriesOfTheWorldUk;
   }
 
   // Use a reactive statement to determine the initial message
@@ -112,8 +112,8 @@
       ui = uiDe;
       questions = questionsDe;
     } else {
-      ui = uiEn;
-      questions = questionsEn;
+      ui = uiUk;
+      questions = questionsUk;
     }
   }
 
@@ -142,19 +142,9 @@
 <main>
   <div>
     <h1>
-      {#if detectedCountryName}
-        {`${ui.iLiveIn} ${
-          countriesOfTheWorld.find((c) => c.code === selectedCountryCode)?.name
-        }`}
-      {:else}
-        {ui.chooseCountry}:
-        <select class="country-select" bind:value={selectedCountryCode}>
-          <option value="">{displayMessage}</option>
-          {#each countriesOfTheWorld as country}
-            <option value={country.code}>{country.name}</option>
-          {/each}
-        </select>
-      {/if}
+      {`${ui.iLiveIn} ${
+        countriesOfTheWorld.find((c) => c.code === selectedCountryCode)?.name
+      }`}
     </h1>
 
     <div class="quiz-container">

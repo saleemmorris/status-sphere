@@ -1,4 +1,4 @@
-import en from "../../data/translations/en/worldStatusQuestionsEn";
+import en from "../../data/translations/uk/worldStatusQuestionsUk";
 import de from "../../data/translations/de/worldStatusQuestionsDe";
 import bn from "../../data/translations/bn/worldStatusQuestionsBn";
 import type { WorldWealthStatus } from "../../data/translations/worldStatusTypes";
